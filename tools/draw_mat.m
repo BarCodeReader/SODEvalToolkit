@@ -6,20 +6,20 @@
 clear, clc; 
 
 %% about using it：
-% result_path 设置为存放evaluate.m生成的mat文件的文件夹，要注意，是包含所有数据集
-%             的文件夹，默认是Results文件夹
+% result_path  设置为存放evaluate.m生成的mat文件的文件夹，要注意，是包含所有数据集
+%              的文件夹，默认是Results文件夹
 % dataset_list 设置为result_path下想要读取数据的文件夹名字，最好使用数据集名字作
 %              为这些文件夹的名字
-% path_list 设置为对应于dataset_list所有文件夹中的mat文件名字的并集，注意，不用加
-%           后缀名
-% disp_list 设置为对应于path_list的所有文件要显示在绘图结果中的名字，由于matlab默
-%           认会将名字字符串显示为latex格式，所以这里特意单独列出来转义后的列表，
-%           注意要和path_list一一对应
+% path_list    设置为对应于dataset_list所有文件夹中的mat文件名字的并集，注意，不用加
+%              后缀名
+% disp_list    设置为对应于path_list的所有文件要显示在绘图结果中的名字，由于matlab默
+%              认会将名字字符串显示为latex格式，所以这里特意单独列出来转义后的列表，
+%              注意要和path_list一一对应
 result_path = './Results/';
 use_record = false;
-dataset_list = ["ECSSD"; "Pascal-S"; "DUTS"; "HKU-IS"; "DUT-OMRON"];
-path_list = ["MFCNV13"; "FGCN_LearnableAux"; "FGCN_XYRGB"; "BASNet" ;"CPD-R"; "DGRL"; "DSS_CRF"; "SRM"];
-disp_list = ["MFCN13"; "FGCN\_LearnableAux"; "FGCN\_XYRGB"; "BASNet"; "CPD-R"; "DGRL"; "DSS\_CRF"; "SRM"];
+dataset_list = ["ECSSD"];
+path_list = ["MixECSSD"; "SingleECSSD"];
+disp_list = ["MixECSSD"; "SingleECSSD"];
 
 %% main program
 linestyle_list = {'-', '--', ':', '-.'};
