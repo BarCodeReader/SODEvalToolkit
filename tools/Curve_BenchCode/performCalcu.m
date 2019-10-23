@@ -16,6 +16,7 @@ numOfAlgos = length(algStructArray);  % num of algorithmos to be evaluated
 
 [hitRate, falseAlarm] = deal(zeros(numOfFiles,length(thresholds),numOfAlgos));%
 
+
 %% initial
 
 [IoU, TPR, FPR, Pre, Recall] = deal(zeros(numOfFiles,length(thresholds),numOfAlgos));
@@ -136,7 +137,6 @@ Metrics.meanIoU                         = mean(Metrics.IoU, 1);
 end
 
 
-
 %% Read Saliency Maps
 
 % Read and resize saliency map
@@ -160,6 +160,7 @@ else
 end  
 
 end
+
 
 %% Calculate the scores
 function [IoU, TPR, FPR, Pre, Recall, hitRate, falseAlarm] ...

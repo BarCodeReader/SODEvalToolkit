@@ -16,7 +16,9 @@ clear, clc;
 %              认会将名字字符串显示为latex格式，所以这里特意单独列出来转义后的列表，
 %              注意要和path_list一一对应
 result_path = './Results/';
-use_record = true;
+save_folder_name = 'Total';
+use_record = false;
+use_random_color = true;
 use_red_num = 1;
 dataset_list = ["DUT-OMRON"; "DUTS"; "ECSSD"; "HKU-IS"; "PASCAL-S"];
 path_list = ["VGG16FCN_OctDeV1TransV1_2Loss"; "AFNet"; 
@@ -43,6 +45,7 @@ color_list = {'k', 'y', 'b', 'm', 'c', 'g'};
 
 % Especially，you can munually change the 'h'
 % h = 5;
+figure();
 for h = 1:length(dataset_list)
     
     dataset_name = [result_path, char(dataset_list(h))];
@@ -73,14 +76,29 @@ for h = 1:length(dataset_list)
         
         p = data.Pre;
         r = data.Recall;
+        subplot(1, length(dataset_list), h);
         if i < use_red_num + 1
             % 指定自己的方法为红色
-            cfg_line = strcat(linestyle_list(i), 'r');
-            plot(r, p, char(cfg_line), 'LineWidth', 1.5)  % (X, Y)
-        else
-            index_color = mod(i, 5) + 1;
-            cfg_line = strcat(linestyle_list(4), color_list(index_color));
-            plot(r, p, char(cfg_line), 'LineWidth', 1)  % (X, Y)
+            plot(r, p, ...
+                'LineStyle', '-', ...
+                'Color', 'r', ...
+                'LineWidth', 1.5)  % (X, Y)
+        else  % 绘制其他算法          
+            if use_random_color
+                % R, G, B
+                curr_color = [0.2 * mod(i, 5) 
+                              0.1 * mod(i, 10) 
+                              0.05 * mod(i, 20)]; 
+            else
+                index_color = mod(i, 2) + 1;
+                curr_color = char(color_list(index_color));
+            end
+            index_linestyle = mod(i + 1, 2) + 1;
+            curr_linestyle = char(linestyle_list(index_linestyle));
+            plot(r, p, ...
+                'LineStyle', curr_linestyle, ...
+                'Color', curr_color, ...
+                'LineWidth', 1)  % (X, Y)
         end
         hold on;
              
@@ -100,18 +118,20 @@ for h = 1:length(dataset_list)
     ylabel('Precision', 'fontname', 'Times New Roman');
     xlabel('Recall', 'fontname', 'Times New Roman');
     axis([0, 1, 0, 1]);
-    
-    set(gca, 'fontname', 'Times New Roman');
-    
+       
     legend('Location','southwest');
     legend(disp_real);
     title(dataset_list(h));
-
-    save_folder = [result_path, 'Img/', char(dataset_list(h))];
-    save_path = [save_folder, '/', 'PR.png'];
-    if ~exist(save_folder, 'dir')
-        fprintf("the dir: %s doesn't exist, so let's creat it", save_folder);
-        mkdir(save_folder);
-    end
-    saveas(gcf, save_path);
 end
+
+save_folder = [result_path, 'Img/', save_folder_name];
+save_path = [save_folder, '/', 'PR.png'];
+if ~exist(save_folder, 'dir')
+    fprintf("the dir: %s doesn't exist, so let's creat it", save_folder);
+    mkdir(save_folder);
+end
+
+% gca表示对axes的设置；  gcf表示对figure的设置
+set(gca, 'fontname', 'Times New Roman');
+set(gca, 'LooseInset', get(gca, 'TightInset'))
+saveas(gcf, save_path);
