@@ -1,4 +1,7 @@
 # folders
 tools/Results/
-tools/SaliencyMaps/
 tools/GroundTruth/
+tools/draw_FMCurve_subplot.m
+tools/diag.pdf
+tools/record.txt
+tools/*~

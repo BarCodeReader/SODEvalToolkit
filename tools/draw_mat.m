@@ -19,22 +19,8 @@ result_path = './Results/';
 use_record = true;
 use_red_num = 1;
 dataset_list = ["DUT-OMRON"; "DUTS"; "ECSSD"; "HKU-IS"; "PASCAL-S"];
-path_list = ["VGG16FCN_OctDeV1TransV1_2Loss"; "AFNet"; 
-             "MLMSNet"; "PAGE-Net"; 
-             "HRS"; "CPD-V";
-             "C2S"; "RAS"; 
-             "PAGRN18"; "PiCANet";
-             "DSS17"; "UCF17";
-             "MSRNet"; "NLDF17"; 
-             "AMU17"; "DCL16"];
-disp_list = ["TIFNet"; "AFNet"; 
-             "MLMSNet"; "PAGE"; 
-             "HRS"; "CPD"; 
-             "C2SNet"; "RAS"; 
-             "PAGR"; "PiCANet";
-             "DSS"; "UCF"; 
-             "MSRNet"; "NLDF"; 
-             "Amulet"; "DCL"];
+path_list = ["YourNet"; "AFNet"];
+disp_list = ["YourNet"; "AFNet"];
 
 %% main program
 linestyle_list = {'-', '--', ':', '-.'};
@@ -102,9 +88,7 @@ for h = 1:length(dataset_list)
     axis([0, 1, 0, 1]);
     
     set(gca, 'fontname', 'Times New Roman');
-    
-    legend('Location','southwest');
-    legend(disp_real);
+    legend(disp_real, 'Location','southwest');
     title(dataset_list(h));
 
     save_folder = [result_path, 'Img/', char(dataset_list(h))];
@@ -113,5 +97,8 @@ for h = 1:length(dataset_list)
         fprintf("the dir: %s doesn't exist, so let's creat it", save_folder);
         mkdir(save_folder);
     end
+    
+    set (gcf,'Position', [0, 0, 500, 500]);
+    axis normal;
     saveas(gcf, save_path);
 end

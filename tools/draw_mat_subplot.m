@@ -3,7 +3,7 @@
 % Github: https://github.com/lartpang
 % Thanks: https://github.com/ArcherFMY/sal_eval_toolbox
 
-clear, clc; 
+clear, clc;
 
 %% about using it：
 % result_path  设置为存放evaluate.m生成的mat文件的文件夹，要注意，是包含所有数据集
@@ -21,21 +21,21 @@ use_record = false;
 use_random_color = true;
 use_red_num = 1;
 dataset_list = ["DUT-OMRON"; "DUTS"; "ECSSD"; "HKU-IS"; "PASCAL-S"];
-path_list = ["VGG16FCN_OctDeV1TransV1_2Loss"; "AFNet"; 
-             "MLMSNet"; "PAGE-Net"; 
+path_list = ["VGG16FCN_OctDeV1TransV1_2Loss"; "AFNet";
+             "MLMSNet"; "PAGE-Net";
              "HRS"; "CPD-V";
-             "C2S"; "RAS"; 
+             "C2S"; "RAS";
              "PAGRN18"; "PiCANet";
              "DSS17"; "UCF17";
-             "MSRNet"; "NLDF17"; 
+             "MSRNet"; "NLDF17";
              "AMU17"; "DCL16"];
-disp_list = ["TIFNet"; "AFNet"; 
-             "MLMSNet"; "PAGE"; 
-             "HRS"; "CPD"; 
-             "C2SNet"; "RAS"; 
+disp_list = ["TIFNet"; "AFNet";
+             "MLMSNet"; "PAGE";
+             "HRS"; "CPD";
+             "C2SNet"; "RAS";
              "PAGR"; "PiCANet";
-             "DSS"; "UCF"; 
-             "MSRNet"; "NLDF"; 
+             "DSS"; "UCF";
+             "MSRNet"; "NLDF";
              "Amulet"; "DCL"];
 
 %% main program
@@ -47,33 +47,33 @@ color_list = {'k', 'y', 'b', 'm', 'c', 'g'};
 % h = 5;
 figure();
 for h = 1:length(dataset_list)
-    
+
     dataset_name = [result_path, char(dataset_list(h))];
     fprintf('\nproj: %s\n', dataset_name);
     if ~exist(dataset_name, 'dir')
         fprintf("the dir doesn't exist...\n");
         continue;
     end
-    
+
     if use_record
         frecord = fopen('record.txt', 'wt');
         fprintf(frecord, '\n===============dataset: %s ===============\n', char(dataset_list(h)));
         fclose(frecord);
     end
-    
+
     disp_real = [];
     for i = 1:length(path_list)
-        
+
         file_name = [result_path, char(dataset_list(h)), '/', char(path_list(i)), '.mat'];
         fprintf('\nproj: %s\n', file_name);
         if ~exist(file_name, 'file')
             fprintf("the file doesn't exist...\n");
             continue;
         end
-        
+
         disp_real = [disp_real, disp_list(i)];
         data = load(file_name);
-        
+
         p = data.Pre;
         r = data.Recall;
         subplot(1, length(dataset_list), h);
@@ -83,12 +83,12 @@ for h = 1:length(dataset_list)
                 'LineStyle', '-', ...
                 'Color', 'r', ...
                 'LineWidth', 1.5)  % (X, Y)
-        else  % 绘制其他算法          
+        else  % 绘制其他算法
             if use_random_color
                 % R, G, B
-                curr_color = [0.2 * mod(i, 5) 
-                              0.1 * mod(i, 10) 
-                              0.05 * mod(i, 20)]; 
+                curr_color = [0.2 * mod(i, 5)
+                              0.1 * mod(i, 10)
+                              0.05 * mod(i, 20)];
             else
                 index_color = mod(i, 2) + 1;
                 curr_color = char(color_list(index_color));
@@ -101,7 +101,7 @@ for h = 1:length(dataset_list)
                 'LineWidth', 1)  % (X, Y)
         end
         hold on;
-             
+
         % 记录结果，可以选择不记录
         if use_record
             frecord = fopen('record.txt', 'wt');
@@ -112,15 +112,14 @@ for h = 1:length(dataset_list)
         end
     end
     % 测试完成一个数据集
-    
+
     hold off;
-    
+
     ylabel('Precision', 'fontname', 'Times New Roman');
     xlabel('Recall', 'fontname', 'Times New Roman');
     axis([0, 1, 0, 1]);
-       
-    legend('Location','southwest');
-    legend(disp_real);
+
+    legend(disp_real, 'Location','southwest');
     title(dataset_list(h));
 end
 
