@@ -15,9 +15,14 @@ for i = 1 : size(alg_params,1)
     AUC = Metrics.AUC(:,i);
     MAE = Metrics.MAE(i);
     S_measure = Metrics.S_measure(i);
+    wFmeasure = Metrics.wFmeasure(i);
+    Emeasure = Metrics.Emeasure(i);
     
     MAE_image = Metrics.MAE_image(:,i);
     S_measure_image = Metrics.S_measure_image(:,i);
+    wFmeasure_image = Metrics.wFmeasure_image(:,i);
+    Emeasure_image = Metrics.Emeasure_image(:,i);
+    
     mean_Fmeasure_image = Metrics.mean_Fmeasure_image(:,:,i);
     TPR_image = Metrics.TPR_image(:,:,i);
     FPR_image = Metrics.FPR_image(:,:,i);
@@ -29,8 +34,11 @@ for i = 1 : size(alg_params,1)
     maxIoU      = Metrics.maxIoU(i);
     meanIoU     = Metrics.meanIoU(i);
     
-    save([savedir,name],'TPR','FPR','IoU', 'Pre','Recall','mean_Fmeasure','HitRate',...
-        'FalseAlarm','AUC','MAE', 'S_measure', 'MAE_image', 'S_measure_image', 'mean_Fmeasure_image',...
-        'TPR_image', 'FPR_image', 'Pre_image', 'Recall_image',...
+    save([savedir,name], ...
+        'TPR','FPR','IoU', 'Pre','Recall','mean_Fmeasure', ...
+        'HitRate', 'FalseAlarm','AUC','MAE', ...
+        'S_measure', 'wFmeasure', 'Emeasure', ...
+        'MAE_image', 'S_measure_image', 'wFmeasure_image', 'Emeasure_image', ...
+        'mean_Fmeasure_image', 'TPR_image', 'FPR_image', 'Pre_image', 'Recall_image',...
         'Fmeasure_Curve', 'MaxFmeasure', 'IoU_at_maxF', 'maxIoU', 'meanIoU');
 end

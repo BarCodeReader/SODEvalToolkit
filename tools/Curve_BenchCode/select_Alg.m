@@ -1,7 +1,7 @@
-function [alg_params, runNum, path, cancel]       = select_Alg(Dataset, set_format)
-              
-    path                        = ['./SaliencyMaps/', Dataset, '/']; 
-    path                        = [ uigetdir(path,'Select the Path of the New Alogrithms'),'/'];
+function [alg_params, runNum, path, cancel]...
+                                = select_Alg(FirstPath, set_format)
+
+    path                        = [ uigetdir(FirstPath,'Select the Path of the New Alogrithms'),'/'];
     new_method_names            = dir(path);
     new_method_names            = {new_method_names(3:end).name}';
     [new_method_namesInd, ok]   = listdlg('liststring',new_method_names,...  
@@ -12,12 +12,12 @@ function [alg_params, runNum, path, cancel]       = select_Alg(Dataset, set_form
     if ok == 0
         fprintf( 'Aborted!\n' );
         cancel = true;
-        path                        = [];
-        alg_params                  = {};
-        runNum                      = 0;
+        path                    = [];
+        alg_params              = {};
+        runNum                  = 0;
         return;
     else
-        new_method_names            = {new_method_names{new_method_namesInd}}';
+        new_method_names        = {new_method_names{new_method_namesInd}}';
     end
     runNum                      = size(new_method_names,1);
     alg_params         = {};

@@ -16,6 +16,7 @@ numOfAlgos = length(algStructArray);  % num of algorithmos to be evaluated
 
 [hitRate, falseAlarm] = deal(zeros(numOfFiles,length(thresholds),numOfAlgos));%
 
+
 %% initial
 
 [IoU, TPR, FPR, Pre, Recall] = deal(zeros(numOfFiles,length(thresholds),numOfAlgos));
@@ -25,6 +26,10 @@ numOfAlgos = length(algStructArray);  % num of algorithmos to be evaluated
 [MAE] = deal(zeros(numOfFiles,1,numOfAlgos)); % totalImgNum*1*numOfAlgos
 
 [S_measure] = deal(zeros(numOfFiles,1,numOfAlgos)); % totalImgNum*1*numOfAlgos
+
+[wFmeasure] = deal(zeros(numOfFiles,1,numOfAlgos));
+
+[Emeasure] = deal(zeros(numOfFiles,1,numOfAlgos));
 
 %Iterate over images
 hwait  = waitbar(0,['Processing ', num2str(numOfFiles),' images on ',datasetStruct.datasetName,': 0%']);
@@ -59,6 +64,10 @@ for imIndx=1:numOfFiles
 
         S_measure(imIndx,:,algIdx) = StructureMeasure(sMap, gtMap); % calculate S-measure
 
+        wFmeasure(imIndx,:,algIdx) = wFmeasure_calu(sMap, gtMap);
+        
+        Emeasure(imIndx,:,algIdx) = Emeasure_calu(sMap, gtMap);
+        
     end
     pct     = sprintf('%5.1f',imIndx/numOfFiles*100);
     waitbar(imIndx/numOfFiles,hwait,['Processing ', num2str(numOfFiles),...
@@ -81,6 +90,8 @@ mmIoU = permute( sum(IoU,1),[2 3 1]);
 mmmean_Fmeasure = permute( sum(mean_Fmeasure,1),[2 3 1]);
 mmMAE = zeros(1,numOfAlgos);
 mmS_measure = zeros(1,numOfAlgos);
+mmwFmeasure = zeros(1,numOfAlgos);
+mmEmeasure = zeros(1,numOfAlgos);
 
 for j=1:numOfAlgos
     nanind = isnan(MAE(:,1,j));
@@ -90,6 +101,14 @@ for j=1:numOfAlgos
     nanind = isnan(S_measure(:,1,j));
     mmmS_measure = S_measure(:,1,j);
     mmmS_measure(nanind) = [];
+    
+    nanind = isnan(wFmeasure(:,1,j));
+    mmmwFmeasure = wFmeasure(:,1,j);
+    mmmwFmeasure(nanind) = [];
+    
+    nanind = isnan(Emeasure(:,1,j));
+    mmmEmeasure = Emeasure(:,1,j);
+    mmmEmeasure(nanind) = [];
     
     mmHitRate(:,j) = mmHitRate(:,j)./totalNum(j);
     mmFalseAlarm(:,j) = mmFalseAlarm(:,j)./totalNum(j);
@@ -102,6 +121,8 @@ for j=1:numOfAlgos
     mmmean_Fmeasure(:,j) = mmmean_Fmeasure(:,j)./totalNum(j);
     mmMAE(:,j) = mean(mmmMAE,1);
     mmS_measure(:,j) = mean(mmmS_measure,1);
+    mmwFmeasure(:,j) = mean(mmmwFmeasure,1);
+    mmEmeasure(:,j) = mean(mmmEmeasure,1);
 end
 Metrics.HitRate = mmHitRate;
 Metrics.FalseAlarm = mmFalseAlarm;
@@ -114,6 +135,9 @@ Metrics.IoU = mmIoU;
 Metrics.mean_Fmeasure = mmmean_Fmeasure;    
 Metrics.MAE = mmMAE; 
 Metrics.S_measure = mmS_measure;
+Metrics.wFmeasure = mmwFmeasure;
+Metrics.Emeasure = mmEmeasure;
+
 Metrics.AUC = nan(1,size(Metrics.FalseAlarm,2));
 for algIdx=1:numOfAlgos
         Metrics.AUC(algIdx) = trapz(Metrics.FalseAlarm(:,algIdx),Metrics.HitRate(:,algIdx));
@@ -122,6 +146,8 @@ end
 Metrics.mean_Fmeasure_image = mean_Fmeasure;
 Metrics.MAE_image = MAE;
 Metrics.S_measure_image = S_measure;
+Metrics.wFmeasure_image = wFmeasure;
+Metrics.Emeasure_image = Emeasure;
 Metrics.TPR_image = TPR;
 Metrics.FPR_image = FPR;
 Metrics.Pre_image = Pre;
@@ -134,7 +160,6 @@ Metrics.IoU_at_maxF                     = Metrics.IoU(ind);
 [Metrics.maxIoU, ~]                     = max(Metrics.IoU, [], 1);
 Metrics.meanIoU                         = mean(Metrics.IoU, 1);
 end
-
 
 
 %% Read Saliency Maps
@@ -160,6 +185,7 @@ else
 end  
 
 end
+
 
 %% Calculate the scores
 function [IoU, TPR, FPR, Pre, Recall, hitRate, falseAlarm] ...
