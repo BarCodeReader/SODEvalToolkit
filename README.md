@@ -1,4 +1,4 @@
-# Evaluation Toolbox for Salient Object Detection
+# A More Powerful Evaluation Toolbox for Salient Object Detection
 
 More details can be found at the origin repository:  https://github.com/ArcherFMY/sal_eval_toolbox
 
