@@ -7,6 +7,12 @@ This forked repository mainly adds the following new features:
 * Support for drawing according to existing mat files.
 * Support custom threshold to binarize masks. Because the masks of some datasets are not exactly a binary map.
 
+## changelos
+
+* 2020/4/16:
+    + Fixed the description of `tools/ README.md`: *Plot these value: You can run draw_mat.m draw_twice.m in matlab* -> *Plot these value: You can run `draw_curves.m` in matlab*
+    + Supplement the description of **NOTE**, about the exported figure.
+
 ## Cite This Repo
 
 **If you find this code useful in your research, please consider citing:**

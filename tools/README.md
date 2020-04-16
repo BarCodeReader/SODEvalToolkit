@@ -5,7 +5,7 @@ The repo contains **Matlab** script to evaluate salient object detection algorit
 ## Install
 
 ```
-git clone https://github.com/lartpang/sal_eval_toolbox.git
+https://github.com/lartpang/SODEvalToolkit.git
 ```
 
 ## HOW TO USE
@@ -13,10 +13,12 @@ git clone https://github.com/lartpang/sal_eval_toolbox.git
 _The code should be easy to use._ It allows any numbers of algorithms to be evaluated on a single dataset at one time.
 
 1. Get the `.mat` file of the results: Just run `evaluate_models.m` in matlab.
-2. Plot these value: You can run ~~`draw_mat.m`~~ `draw_twice.m` in matlab.
+2. Plot these value: You can run `draw_curves.m` in matlab.
 3. Export the results in the folder `Results` by running `mat2excel.m`
 
-**NOTE**: Please read the configuration items carefully when using the code to avoid unnecessary erors. If you have more questions, you can create a new issue.
+**NOTE**:
+* Please read the configuration items carefully when using the code to avoid unnecessary erors. If you have more questions, you can create a new issue.
+* It is really convinient to export the figure into a pdf and use it in the latex document. But, when you use the pdf generated from the latex document as the conference's submittion, and wish it to pass the PDF check of *IEEE PDF eXpress*, maybe, you will recive the report: `Font Times-Bold, Times-Roman, Times-Roman*1 is not embedded...`. At this time, you can use *Adobe Acrobat* to embed fonts in the figure pdf and then, generate the pdf from *LaTeX*, again. Everything's gonna be all right.
 
 More information can be seen in the comment text of the corresponding file.
 
@@ -40,7 +42,7 @@ if ~exist(Dataset.savedir,'dir')
 end
 ```
 
-You can change `Dataset.GTdir` to `/path/to/your/GTfiles/` where your **ground truth** are. (like `DUTS`, 'ECSSD'...)
+You can change `Dataset.GTdir` to `/path/to/your/GTfiles/` where your **ground truth** are. (like `DUTS`, `ECSSD`...)
 
 The default folder to save the results is `Dataset.savedir`, generally speaking, you needn't change it.
 
