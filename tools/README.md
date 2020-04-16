@@ -5,7 +5,7 @@ The repo contains **Matlab** script to evaluate salient object detection algorit
 ## Install
 
 ```
-https://github.com/lartpang/SODEvalToolkit.git
+git clone https://github.com/lartpang/SODEvalToolkit.git
 ```
 
 ## HOW TO USE
@@ -15,6 +15,7 @@ _The code should be easy to use._ It allows any numbers of algorithms to be eval
 1. Get the `.mat` file of the results: Just run `evaluate_models.m` in matlab.
 2. Plot these value: You can run `draw_curves.m` in matlab.
 3. Export the results in the folder `Results` by running `mat2excel.m`
+4. (Optional) Change the excel's data to latex code with <http://www.tablesgenerator.com/>
 
 **NOTE**:
 * Please read the configuration items carefully when using the code to avoid unnecessary erors. If you have more questions, you can create a new issue.

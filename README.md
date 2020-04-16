@@ -10,8 +10,11 @@ This forked repository mainly adds the following new features:
 ## changelos
 
 * 2020/4/16:
-    + Fixed the description of `tools/ README.md`: *Plot these value: You can run draw_mat.m draw_twice.m in matlab* -> *Plot these value: You can run `draw_curves.m` in matlab*
-    + Supplement the description of **NOTE**, about the exported figure.
+    + `tools/ README.md`
+        + Fixed the description: *Plot these value: You can run draw_mat.m draw_twice.m in matlab* -> *Plot these value: You can run `draw_curves.m` in matlab*
+        + Supplement the description of **NOTE**, about the exported figure.
+        + Add a piece of content to **HOW TO USE**.
+    + Delete some useless files.
 
 ## Cite This Repo
 
