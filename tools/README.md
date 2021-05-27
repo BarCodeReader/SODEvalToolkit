@@ -1,4 +1,4 @@
-**NOTE**: An fast and flexible implementation based python: <https://github.com/lartpang/PySODMetrics>
+**NOTE**: A fast and flexible implementation based python: <https://github.com/lartpang/PySODMetrics>
 
 # Evaluation Scripts for Salient Object Detection
 
