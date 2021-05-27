@@ -1,6 +1,6 @@
 # A More Powerful Evaluation Toolbox for Salient Object Detection
 
-**NOTE**: An fast and flexible implementation based python: <https://github.com/lartpang/PySODMetrics>
+**NOTE**: A fast and flexible implementation based python: <https://github.com/lartpang/PySODMetrics>
 
 More details can be found at the origin repository:  https://github.com/ArcherFMY/sal_eval_toolbox
 
