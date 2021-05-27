@@ -1,3 +1,5 @@
+**NOTE**: An fast and flexible implementation based python: <https://github.com/lartpang/PySODMetrics>
+
 # Evaluation Scripts for Salient Object Detection
 
 The repo contains **Matlab** script to evaluate salient object detection algorithms.
